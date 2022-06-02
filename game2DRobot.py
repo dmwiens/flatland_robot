@@ -5,6 +5,7 @@ import pygame
 import math
 
 import robot as rb
+import geometry as geo
 
 pygame.init()
 
@@ -12,7 +13,7 @@ FPS = 60
 size = width, height = 1280, 960
 speed = [1, 1]
 black = 0, 0, 0
-origin = {'x': 500, 'y':500}
+origin = geo.Point(500, 500)
 
 surface = pygame.display.set_mode(size)
 surface.convert
@@ -58,8 +59,8 @@ while clk.tick(FPS):
     (angleADEG, angleBDEG) = rb.getPositionFromTime(t)
 
     surface.fill(black)
-    linkA = pygame.draw.polygon(surface, BLUE,  getPointsOfRectAtAngle(origin['x'], origin['y'], rb.LINK_A_LEN, 20, angleADEG))
-    linkB = pygame.draw.polygon(surface, BLUEG, getPointsOfRectAtAngle(origin['x'] + rb.LINK_A_LEN*math.cos(math.radians(angleADEG)), origin['y'] + rb.LINK_A_LEN*math.sin(math.radians(angleADEG)), rb.LINK_B_LEN, 20, angleBDEG))
+    linkA = pygame.draw.polygon(surface, BLUE,  getPointsOfRectAtAngle(origin.x, origin.y, rb.LINK_A_LEN, 20, angleADEG))
+    linkB = pygame.draw.polygon(surface, BLUEG, getPointsOfRectAtAngle(origin.x + rb.LINK_A_LEN*math.cos(math.radians(angleADEG)), origin.y + rb.LINK_A_LEN*math.sin(math.radians(angleADEG)), rb.LINK_B_LEN, 20, angleBDEG))
     surface.blit(ball, ballrect)
 
     
