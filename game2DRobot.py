@@ -2,7 +2,7 @@
 
 import sys
 import pygame
-import math
+from math import *
 
 import robot as rb
 import geometry as geo
@@ -23,12 +23,12 @@ BLUEG=(0,128,255)
 
 
 def getPointsOfRectAtAngle(left, top, width, height, angleDEG):
-    angleRAD = math.radians(angleDEG)
+    angleRAD = radians(angleDEG)
     return [
         (left                                                       , top                                                           ),
-        (left + width*math.cos(angleRAD)                            , top + width*math.sin(angleRAD)                                ),
-        (left + width*math.cos(angleRAD)+ height*math.sin(angleRAD) , top + width*math.sin(angleRAD)    - height*math.cos(angleRAD) ),
-        (left                           + height*math.sin(angleRAD) , top                               - height*math.cos(angleRAD) )
+        (left + width*cos(angleRAD)                            , top + width*sin(angleRAD)                                ),
+        (left + width*cos(angleRAD)+ height*sin(angleRAD) , top + width*sin(angleRAD)    - height*cos(angleRAD) ),
+        (left                           + height*sin(angleRAD) , top                               - height*cos(angleRAD) )
     ]
 
 ball = pygame.image.load("intro_ball.gif")
@@ -56,11 +56,11 @@ while clk.tick(FPS):
 
 
     # New angles
-    (angleADEG, angleBDEG) = rb.getPositionFromTime(t)
+    (angleADEG, angleBDEG) = rb.getPositionsFromTime(t)
 
     surface.fill(black)
     linkA = pygame.draw.polygon(surface, BLUE,  getPointsOfRectAtAngle(origin.x, origin.y, rb.LINK_A_LEN, 20, angleADEG))
-    linkB = pygame.draw.polygon(surface, BLUEG, getPointsOfRectAtAngle(origin.x + rb.LINK_A_LEN*math.cos(math.radians(angleADEG)), origin.y + rb.LINK_A_LEN*math.sin(math.radians(angleADEG)), rb.LINK_B_LEN, 20, angleBDEG))
+    linkB = pygame.draw.polygon(surface, BLUEG, getPointsOfRectAtAngle(origin.x + rb.LINK_A_LEN*cos(radians(angleADEG)), origin.y + rb.LINK_A_LEN*sin(radians(angleADEG)), rb.LINK_B_LEN, 20, angleBDEG))
     surface.blit(ball, ballrect)
 
     
