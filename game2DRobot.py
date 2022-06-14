@@ -22,6 +22,26 @@ BLUE=(0,0,255)
 BLUEG=(0,128,255)
 
 
+def getHexLink(startPtPX, endPtPX):
+    pass
+
+
+
+# Gets the 6 points an elongated trapezoid, given the 2 "sword tips"
+def getPointsOfTrapezoid2Pts(pt1: geo.Point, pt2: geo.Point):
+    k = min(20, geo.hypotenuse(pt1, pt2)/2)
+    angle1to2 = atan2(pt2.y-pt1.y, pt2.x-pt1.x)
+
+    return [(pt1.x                                  , pt1.y                                 ),
+            (pt1.x + k*cos(angle1to2+radians(45))   , pt1.x + k*sin(angle1to2+radians(45))  ),
+            (pt2.x + k*cos(angle1to2+radians(135))  , pt2.y + k*sin(angle1to2+radians(135)) ),
+            (pt2.x                                  , pt2.y                                 ),
+            (pt2.x + k*cos(angle1to2-radians(135))  , pt2.y + k*sin(angle1to2-radians(135)) ),
+            (pt1.x + k*cos(angle1to2-radians(45))   , pt1.x + k*sin(angle1to2-radians(45))  ),
+            ]
+
+
+
 def getPointsOfRectAtAngle(left, top, width, height, angleDEG):
     angleRAD = radians(angleDEG)
     return [
@@ -61,6 +81,10 @@ while clk.tick(FPS):
     surface.fill(black)
     linkA = pygame.draw.polygon(surface, BLUE,  getPointsOfRectAtAngle(origin.x, origin.y, rb.LINK_A_LEN, 20, angleADEG))
     linkB = pygame.draw.polygon(surface, BLUEG, getPointsOfRectAtAngle(origin.x + rb.LINK_A_LEN*cos(radians(angleADEG)), origin.y + rb.LINK_A_LEN*sin(radians(angleADEG)), rb.LINK_B_LEN, 20, angleBDEG))
+
+
+    linkTest = pygame.draw.polygon(surface, (255,0,255), getPointsOfTrapezoid2Pts(geo.Point(50,50), geo.Point(200,120)))
+    
     surface.blit(ball, ballrect)
 
     
