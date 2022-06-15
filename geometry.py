@@ -9,6 +9,17 @@ class Point:
         self.x = x
         self.y = y
 
+    def addVectorMagAng(self, magnitude, angle):
+        newPt = Point(self.x, self.y)
+        newPt.x += magnitude*cos(radians(angle))
+        newPt.y += magnitude*sin(radians(angle))
+
+        return newPt
+
+    def __repr__(self) -> str:
+        return "(x: " + str(self.x) + ", y: " + str(self.y) + ")"
+
+
 
 
 def hypotenuse(pt1: Point, pt2: Point):

@@ -12,6 +12,10 @@ def getPositionsFromTime(t):
     periodB = 1.8
     angleADEG = 20 + 10*sin(2*pi/periodA*t)
     angleBDEG = 60 + 30*sin(2*pi/periodB*t)
+
+    # clockwise rotation
+    # angleADEG = -90*t
+    # angleBDEG = 90*t
     
     return (angleADEG, angleBDEG)
 
